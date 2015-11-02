@@ -1,0 +1,33 @@
+<%= form_for(@media_item) do |f| %>
+  <% if @media_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@media_item.errors.count, "error") %> prohibited this media_item from being saved:</h2>
+
+      <ul>
+      <% @media_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :media_item_name %><br>
+    <%= f.text_field :media_item_name %>
+  </div>
+  <div class="field">
+    <%= f.label :origin_s3_url %><br>
+    <%= f.text_field :origin_s3_url %>
+  </div>
+  <div class="field">
+    <%= f.label :destination_s3_url %><br>
+    <%= f.text_field :destination_s3_url %>
+  </div>
+  <div class="field">
+    <%= f.label :encoding_profile %><br>
+    <%= f.text_field :encoding_profile %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

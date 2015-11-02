@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Media item name:</strong>
+  <%= @media_item.media_item_name %>
+</p>
+
+<p>
+  <strong>Origin s3 url:</strong>
+  <%= @media_item.origin_s3_url %>
+</p>
+
+<p>
+  <strong>Destination s3 url:</strong>
+  <%= @media_item.destination_s3_url %>
+</p>
+
+<p>
+  <strong>Encoding profile:</strong>
+  <%= @media_item.encoding_profile %>
+</p>
+
+<%= link_to 'Edit', edit_media_item_path(@media_item) %> |
+<%= link_to 'Back', media_items_path %>
