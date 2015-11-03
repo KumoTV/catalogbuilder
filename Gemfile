@@ -33,13 +33,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0'
+  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+      gem lib, :git => "git://github.com/rspec/#{lib}.git", :branch => 'master'
+  end
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 2.5'
 end
 
 group :development do

@@ -18,57 +18,51 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe MediaItemsController, type: :controller do
+RSpec.describe MediaItemsController do
 
   # This should return the minimal set of attributes required to create a valid
   # MediaItem. As you add validations to MediaItem, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:valid_attributes) { { "media_item_name" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # MediaItemsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
+  describe "GET index" do
     it "assigns all media_items as @media_items" do
       media_item = MediaItem.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:media_items)).to eq([media_item])
+      assigns(:media_items).should eq([media_item])
     end
   end
 
-  describe "GET #show" do
+  describe "GET show" do
     it "assigns the requested media_item as @media_item" do
       media_item = MediaItem.create! valid_attributes
       get :show, {:id => media_item.to_param}, valid_session
-      expect(assigns(:media_item)).to eq(media_item)
+      assigns(:media_item).should eq(media_item)
     end
   end
 
-  describe "GET #new" do
+  describe "GET new" do
     it "assigns a new media_item as @media_item" do
       get :new, {}, valid_session
-      expect(assigns(:media_item)).to be_a_new(MediaItem)
+      assigns(:media_item).should be_a_new(MediaItem)
     end
   end
 
-  describe "GET #edit" do
+  describe "GET edit" do
     it "assigns the requested media_item as @media_item" do
       media_item = MediaItem.create! valid_attributes
       get :edit, {:id => media_item.to_param}, valid_session
-      expect(assigns(:media_item)).to eq(media_item)
+      assigns(:media_item).should eq(media_item)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
+  describe "POST create" do
+    describe "with valid params" do
       it "creates a new MediaItem" do
         expect {
           post :create, {:media_item => valid_attributes}, valid_session
@@ -77,71 +71,78 @@ RSpec.describe MediaItemsController, type: :controller do
 
       it "assigns a newly created media_item as @media_item" do
         post :create, {:media_item => valid_attributes}, valid_session
-        expect(assigns(:media_item)).to be_a(MediaItem)
-        expect(assigns(:media_item)).to be_persisted
+        assigns(:media_item).should be_a(MediaItem)
+        assigns(:media_item).should be_persisted
       end
 
       it "redirects to the created media_item" do
         post :create, {:media_item => valid_attributes}, valid_session
-        expect(response).to redirect_to(MediaItem.last)
+        response.should redirect_to(MediaItem.last)
       end
     end
 
-    context "with invalid params" do
+    describe "with invalid params" do
       it "assigns a newly created but unsaved media_item as @media_item" do
-        post :create, {:media_item => invalid_attributes}, valid_session
-        expect(assigns(:media_item)).to be_a_new(MediaItem)
+        # Trigger the behavior that occurs when invalid params are submitted
+        MediaItem.any_instance.stub(:save).and_return(false)
+        post :create, {:media_item => { "media_item_name" => "invalid value" }}, valid_session
+        assigns(:media_item).should be_a_new(MediaItem)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:media_item => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+        # Trigger the behavior that occurs when invalid params are submitted
+        MediaItem.any_instance.stub(:save).and_return(false)
+        post :create, {:media_item => { "media_item_name" => "invalid value" }}, valid_session
+        response.should render_template("new")
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
+  describe "PUT update" do
+    describe "with valid params" do
       it "updates the requested media_item" do
         media_item = MediaItem.create! valid_attributes
-        put :update, {:id => media_item.to_param, :media_item => new_attributes}, valid_session
-        media_item.reload
-        skip("Add assertions for updated state")
+        # Assuming there are no other media_items in the database, this
+        # specifies that the MediaItem created on the previous line
+        # receives the :update_attributes message with whatever params are
+        # submitted in the request.
+        MediaItem.any_instance.should_receive(:update).with({ "media_item_name" => "MyString" })
+        put :update, {:id => media_item.to_param, :media_item => { "media_item_name" => "MyString" }}, valid_session
       end
 
       it "assigns the requested media_item as @media_item" do
         media_item = MediaItem.create! valid_attributes
         put :update, {:id => media_item.to_param, :media_item => valid_attributes}, valid_session
-        expect(assigns(:media_item)).to eq(media_item)
+        assigns(:media_item).should eq(media_item)
       end
 
       it "redirects to the media_item" do
         media_item = MediaItem.create! valid_attributes
         put :update, {:id => media_item.to_param, :media_item => valid_attributes}, valid_session
-        expect(response).to redirect_to(media_item)
+        response.should redirect_to(media_item)
       end
     end
 
-    context "with invalid params" do
+    describe "with invalid params" do
       it "assigns the media_item as @media_item" do
         media_item = MediaItem.create! valid_attributes
-        put :update, {:id => media_item.to_param, :media_item => invalid_attributes}, valid_session
-        expect(assigns(:media_item)).to eq(media_item)
+        # Trigger the behavior that occurs when invalid params are submitted
+        MediaItem.any_instance.stub(:save).and_return(false)
+        put :update, {:id => media_item.to_param, :media_item => { "media_item_name" => "invalid value" }}, valid_session
+        assigns(:media_item).should eq(media_item)
       end
 
       it "re-renders the 'edit' template" do
         media_item = MediaItem.create! valid_attributes
-        put :update, {:id => media_item.to_param, :media_item => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        # Trigger the behavior that occurs when invalid params are submitted
+        MediaItem.any_instance.stub(:save).and_return(false)
+        put :update, {:id => media_item.to_param, :media_item => { "media_item_name" => "invalid value" }}, valid_session
+        response.should render_template("edit")
       end
     end
   end
 
-  describe "DELETE #destroy" do
+  describe "DELETE destroy" do
     it "destroys the requested media_item" do
       media_item = MediaItem.create! valid_attributes
       expect {
@@ -152,7 +153,7 @@ RSpec.describe MediaItemsController, type: :controller do
     it "redirects to the media_items list" do
       media_item = MediaItem.create! valid_attributes
       delete :destroy, {:id => media_item.to_param}, valid_session
-      expect(response).to redirect_to(media_items_url)
+      response.should redirect_to(media_items_url)
     end
   end
 

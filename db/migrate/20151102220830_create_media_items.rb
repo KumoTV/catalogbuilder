@@ -1,5 +1,6 @@
 class CreateMediaItems < ActiveRecord::Migration
   def change
+    #drop_table :media_items
     create_table :media_items do |t|
       t.string :media_item_name
       t.string :origin_s3_url

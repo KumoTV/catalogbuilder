@@ -1,15 +1,15 @@
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe "media_items/index", type: :view do
+describe "media_items/index" do
   before(:each) do
     assign(:media_items, [
-      MediaItem.create!(
+      stub_model(MediaItem,
         :media_item_name => "Media Item Name",
         :origin_s3_url => "Origin S3 Url",
         :destination_s3_url => "Destination S3 Url",
         :encoding_profile => "Encoding Profile"
       ),
-      MediaItem.create!(
+      stub_model(MediaItem,
         :media_item_name => "Media Item Name",
         :origin_s3_url => "Origin S3 Url",
         :destination_s3_url => "Destination S3 Url",
@@ -20,6 +20,7 @@ RSpec.describe "media_items/index", type: :view do
 
   it "renders a list of media_items" do
     render
+    # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Media Item Name".to_s, :count => 2
     assert_select "tr>td", :text => "Origin S3 Url".to_s, :count => 2
     assert_select "tr>td", :text => "Destination S3 Url".to_s, :count => 2
