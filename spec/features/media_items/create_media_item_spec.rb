@@ -37,4 +37,12 @@ RSpec.feature "Media Items management", :type => :feature do
     create_media_item({:destination_s3_url => "s4://test/test2/novalid/"})
     expect(page).to have_text("Destination s3 url That is not a valid destination s3 url for an encoded asset.")
   end
+  
+  scenario "It is not possible to create two media items with the same name" do
+    ts = Time.now.strftime('%Y%m%d%H%M%S')
+    create_media_item({:name => "TEST_MEDIA_ITEM_#{ts}"})
+    expect(page).to have_text("Media item was successfully created")
+    create_media_item({:name => "TEST_MEDIA_ITEM_#{ts}"})
+    expect(page).to have_text("Media item name has already been taken")
+  end
 end
