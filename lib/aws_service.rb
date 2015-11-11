@@ -46,7 +46,9 @@ module AwsService
     attr_reader :credentials
     attr_reader :region
 
-    def initialize(credentials, region, pool_size, max_pending_notifications, logger = nil)
+    include Singleton
+
+    def init_pool(credentials, region, pool_size, max_pending_notifications, logger = nil)
       @pool = Queue.new
       @pool_size = pool_size
       @max_pending_notifications = max_pending_notifications
