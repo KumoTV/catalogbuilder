@@ -41,10 +41,6 @@ module AwsService
 
   class SnsConnectionPool
     attr_reader :pool
-    attr_reader :pool_size
-    attr_reader :max_pending_notifications
-    attr_reader :credentials
-    attr_reader :region
 
     include Singleton
 
@@ -62,14 +58,14 @@ module AwsService
     end
 
     def single_connection
-      Sns.new(credentials, region)
+      Sns.new(@credentials, @region)
     end
 
     def get_sns_connection
       pending_notifications = pool.num_waiting
-      while pending_notifications >= max_pending_notifications do
+      while pending_notifications >= @max_pending_notifications do
         Rails.logger.warning "Maximum number of notifications waiting for processing. Resizing Pool."
-        resizing = pool_size + pending_notifications
+        resizing = @pool_size + pending_notifications
         resizing.times do
           pool << single_connection
         end

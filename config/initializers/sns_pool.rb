@@ -9,6 +9,7 @@ sns_max_pending_notifications= ENV["sns_max_pending_notifications"]
 
 require 'aws_service'
 include AwsService
-::SnsConnectionPool = AwsService::SnsConnectionPool.new({:access_key_id => aws_access_key_id, 
-                                              :secret_access_key => aws_secret_access_key}, 
-                                              aws_region, sns_connection_pool_size.to_i, sns_max_pending_notifications.to_i)
+::SnsConnectionPool = AwsService::SnsConnectionPool.instance
+::SnsConnectionPool.init_pool({:access_key_id => aws_access_key_id, 
+                               :secret_access_key => aws_secret_access_key}, 
+                               aws_region, sns_connection_pool_size.to_i, sns_max_pending_notifications.to_i)
