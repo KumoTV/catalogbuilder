@@ -10,7 +10,6 @@ module AwsService
     end
   end
 
-
   class Sns < AwsService
 
     attr_reader :sns
@@ -78,9 +77,9 @@ module AwsService
     end
 
     def release_sns_connection(connection)
-      Rails.logger.info "Current pool size #{pool.size}. Pushing a new connection."
+      Rails.logger.info "Current pool size #{pool.size}. Releasing a new connection."
       pool << connection
-      Rails.logger.info "Current pool size #{pool.size}."
+      Rails.logger.info "Connection released. Current pool size #{pool.size}."
     end
   end
 end
