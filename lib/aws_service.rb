@@ -2,7 +2,7 @@ module AwsService
 
   class AwsService
 
-    def initialize(credentials = {}, region = nil, logger = nil)
+    def initialize(credentials = {}, region = nil)
       credentials = defaults[:credentials].merge(credentials)
       region ||= defaults[:region]
     end
@@ -17,7 +17,7 @@ module AwsService
 
   class Sns < AwsService
 
-    def initialize(credentials = {}, region = nil, logger = nil)
+    def initialize(credentials = {}, region = nil)
       super
       begin
         @sns = Aws::SNS::Client.new(access_key_id: credentials[:access_key_id], 
@@ -46,7 +46,7 @@ module AwsService
 
     include Singleton
 
-    def init_pool(credentials, region, pool_size, max_pending_notifications, logger = nil)
+    def init_pool(credentials, region, pool_size, max_pending_notifications)
       @pool = Queue.new
       @pool_size = pool_size
       @max_pending_notifications = max_pending_notifications
