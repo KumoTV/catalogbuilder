@@ -1,0 +1,28 @@
+#############################
+# Application Configuration #
+#############################
+## DB ##
+catalogbuilder_db_password: "6Iwh8HLn/mR9upEyxS+4ag=="
+
+## AWS##
+aws_access_key_id: "AKIAIUZUN5FV6WPAIGYQ"
+aws_secret_access_key: "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"
+aws_region: "eu-west-1"
+
+### AWS-SNS ###
+sns_topic_arn: "arn:aws:sns:eu-west-1:520928073947:elt-topic"
+sns_auth_on_unsubscribe: "authenticateOnUnsubscribe"
+sns_connection_pool_size: "20"
+sns_max_pending_notifications: "5"
+
+### AWS-ElasticTranscoder ####
+### AWS-S3 ###
+### AWS-CloudFront ###
+
+## Logger ##
+log_output: "STDOUT"
+development:
+  log_level: "debug"
+production:
+  log_level: "error"
+
