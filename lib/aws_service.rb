@@ -1,18 +1,21 @@
 module AwsService
 
   class AwsService
-    attr_reader :config
 
     def initialize(credentials = {}, region = nil, logger = nil)
-      credentials ||= { :access_key_id => ENV('AWS_ACCESS_KEY_ID'),
-                      :secret_access_key => ENV('AWS_SECRET_ACCESS_KEY')}
-      region ||= ENV('AWS_REGION')
+      credentials = defaults[:credentials].merge(credentials)
+      region ||= defaults[:region]
+    end
+
+    def defaults
+      {:credentials =>
+          {:access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+           :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']},
+       :region => ENV['AWS_DEFAULT_REGION']}
     end
   end
 
   class Sns < AwsService
-
-    attr_reader :sns
 
     def initialize(credentials = {}, region = nil, logger = nil)
       super
@@ -28,7 +31,7 @@ module AwsService
     def confirm(confirm_subscription_message, sns_topic_arn, sns_auth_on_unsubscribe)
       begin
           notification = Hashie::Mash.new JSON.parse(confirm_subscription_message)
-          sns.confirm_subscription({
+          @sns.confirm_subscription({
           topic_arn: sns_topic_arn,
           token: notification.Token,
           authenticate_on_unsubscribe: sns_auth_on_unsubscribe
@@ -40,7 +43,6 @@ module AwsService
   end
 
   class SnsConnectionPool
-    attr_reader :pool
 
     include Singleton
 
@@ -50,10 +52,8 @@ module AwsService
       @max_pending_notifications = max_pending_notifications
       @credentials = credentials
       @region = region
-      Thread.new do
-        pool_size.times do
-          pool << single_connection
-        end
+      @pool_size.times do
+          @pool << single_connection
       end
     end
 
@@ -62,22 +62,22 @@ module AwsService
     end
 
     def get_sns_connection
-      pending_notifications = pool.num_waiting
+      pending_notifications = @pool.num_waiting
       while pending_notifications >= @max_pending_notifications do
         Rails.logger.warning "Maximum number of notifications waiting for processing. Resizing Pool."
         resizing = @pool_size + pending_notifications
         resizing.times do
-          pool << single_connection
+          @pool << single_connection
         end
       end
-      Rails.logger.info "Current pool size #{pool.size}. Attempting to pop a new connection."
-      pool.pop
+      Rails.logger.info "Current pool size #{@pool.size}. Attempting to pop a new connection."
+      @pool.pop
     end
 
     def release_sns_connection(connection)
-      Rails.logger.info "Current pool size #{pool.size}. Releasing a new connection."
-      pool << connection
-      Rails.logger.info "Connection released. Current pool size #{pool.size}."
+      Rails.logger.info "Current pool size #{@pool.size}. Releasing a new connection."
+      @pool << connection
+      Rails.logger.info "Connection released. Current pool size #{@pool.size}."
     end
   end
 end
