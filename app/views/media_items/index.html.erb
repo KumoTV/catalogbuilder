@@ -5,10 +5,10 @@
 <table>
   <thead>
     <tr>
-      <th>Media item name</th>
-      <th>Origin s3 url</th>
-      <th>Destination s3 url</th>
-      <th>Encoding profile</th>
+      <th>Media item</th>
+      <th>S3 input key</th>
+      <th>S3 output key</th>
+      <th>Cloudfront url</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,10 +16,10 @@
   <tbody>
     <% @media_items.each do |media_item| %>
       <tr>
-        <td><%= media_item.media_item_name %></td>
-        <td><%= media_item.origin_s3_url %></td>
-        <td><%= media_item.destination_s3_url %></td>
-        <td><%= media_item.encoding_profile %></td>
+        <td><%= media_item.media_item_id %></td>
+        <td><%= media_item.s3_input_key %></td>
+        <td><%= media_item.s3_output_key %></td>
+        <td><%= media_item.cloudfront_url %></td>
         <td><%= link_to 'Show', media_item %></td>
         <td><%= link_to 'Edit', edit_media_item_path(media_item) %></td>
         <td><%= link_to 'Destroy', media_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,23 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Media item name:</strong>
-  <%= @media_item.media_item_name %>
+  <strong>Media item:</strong>
+  <%= @media_item.media_item_id %>
 </p>
 
 <p>
-  <strong>Origin s3 url:</strong>
-  <%= @media_item.origin_s3_url %>
+  <strong>S3 input key:</strong>
+  <%= @media_item.s3_input_key %>
 </p>
 
 <p>
-  <strong>Destination s3 url:</strong>
-  <%= @media_item.destination_s3_url %>
+  <strong>S3 output key:</strong>
+  <%= @media_item.s3_output_key %>
 </p>
 
 <p>
-  <strong>Encoding profile:</strong>
-  <%= @media_item.encoding_profile %>
+  <strong>Cloudfront url:</strong>
+  <%= @media_item.cloudfront_url %>
 </p>
 
 <%= link_to 'Edit', edit_media_item_path(@media_item) %> |

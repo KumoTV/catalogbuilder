@@ -12,20 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :media_item_name %><br>
-    <%= f.text_field :media_item_name %>
+    <%= f.label :media_item_id %><br>
+    <%= f.text_field :media_item_id %>
   </div>
   <div class="field">
-    <%= f.label :origin_s3_url %><br>
-    <%= f.text_field :origin_s3_url %>
+    <%= f.label :s3_input_key %><br>
+    <%= f.text_field :s3_input_key %>
   </div>
   <div class="field">
-    <%= f.label :destination_s3_url %><br>
-    <%= f.text_field :destination_s3_url %>
+    <%= f.label :s3_output_key %><br>
+    <%= f.text_field :s3_output_key %>
   </div>
   <div class="field">
-    <%= f.label :encoding_profile %><br>
-    <%= f.text_field :encoding_profile %>
+    <%= f.label :cloudfront_url %><br>
+    <%= f.text_field :cloudfront_url %>
   </div>
   <div class="actions">
     <%= f.submit %>

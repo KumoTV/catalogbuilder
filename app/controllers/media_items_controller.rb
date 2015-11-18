@@ -69,6 +69,6 @@ class MediaItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def media_item_params
-      params.require(:media_item).permit(:media_item_name, :origin_s3_url, :destination_s3_url, :encoding_profile)
+      params.require(:media_item).permit(:media_item_id, :s3_input_key, :s3_output_key, :cloudfront_url)
     end
 end
