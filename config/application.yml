@@ -2,11 +2,11 @@
 # Application Configuration #
 #############################
 ## DB ##
-catalogbuilder_db_password: "6Iwh8HLn/mR9upEyxS+4ag=="
+catalogbuilder_db_password: "***********"
 
 ## AWS##
-aws_access_key_id: "AKIAIUZUN5FV6WPAIGYQ"
-aws_secret_access_key: "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"
+aws_access_key_id: "***********"
+aws_secret_access_key: "***********"
 aws_region: "eu-west-1"
 
 ### AWS-SNS ###
