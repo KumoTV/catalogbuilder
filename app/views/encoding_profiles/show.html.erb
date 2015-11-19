@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Preset:</strong>
+  <%= @encoding_profile.preset_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @encoding_profile.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @encoding_profile.description %>
+</p>
+
+<%= link_to 'Edit', edit_encoding_profile_path(@encoding_profile) %> |
+<%= link_to 'Back', encoding_profiles_path %>

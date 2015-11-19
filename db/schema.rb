@@ -11,20 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105000330) do
+ActiveRecord::Schema.define(version: 201511182339999) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "media_items", force: :cascade do |t|
-    t.string   "media_item_name"
-    t.string   "origin_s3_url"
-    t.string   "destination_s3_url"
-    t.string   "encoding_profile"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+  create_table "encoding_profiles", force: :cascade do |t|
+    t.string   "preset_id"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "media_items", ["media_item_name"], name: "index_media_items_on_media_item_name", unique: true, using: :btree
+  add_index "encoding_profiles", ["name"], name: "index_encoding_profiles_on_name", unique: true, using: :btree
+  add_index "encoding_profiles", ["preset_id"], name: "index_encoding_profiles_on_preset_id", unique: true, using: :btree
+
+  create_table "media_items", force: :cascade do |t|
+    t.string   "media_item_id"
+    t.string   "s3_input_key"
+    t.string   "s3_output_key"
+    t.string   "cloudfront_url"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "media_items", ["cloudfront_url"], name: "index_media_items_on_cloudfront_url", unique: true, using: :btree
 
 end

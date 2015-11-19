@@ -1,0 +1,29 @@
+<%= form_for(@encoding_profile) do |f| %>
+  <% if @encoding_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@encoding_profile.errors.count, "error") %> prohibited this encoding_profile from being saved:</h2>
+
+      <ul>
+      <% @encoding_profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :preset_id %><br>
+    <%= f.text_field :preset_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
