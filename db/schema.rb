@@ -38,4 +38,12 @@ ActiveRecord::Schema.define(version: 201511182339999) do
 
   add_index "media_items", ["cloudfront_url"], name: "index_media_items_on_cloudfront_url", unique: true, using: :btree
 
+  create_table "notifications", force: :cascade do |t|
+    t.string   "topic"
+    t.text     "subject"
+    t.json     "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end

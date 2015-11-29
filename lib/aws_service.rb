@@ -74,6 +74,13 @@ module AwsService
        Rails.logger.error "ERROR: #{e}"
      end
     end
+
+    def save_sns_notification(sns_notification)
+      notification = Hashie::Mash.new JSON.parse(sns_notification)
+      Notification.create(:topic => notification.TopicArn,
+                          :subject => notification.Subject,
+                          :message => notification.Message)
+    end
   end
 
   class SnsConnectionPool

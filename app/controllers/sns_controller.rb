@@ -11,6 +11,7 @@ class SnsController < ApplicationController
            Rails.logger.info "Received #{amz_message_type} notification."
            sns.confirm(request.raw_post, ::SnsTopicArn, ::SnsAuthOnUnsubscribe)
          when "Notification"
+           sns.save_sns_notification(request.raw_post)
            Rails.logger.info "Received #{amz_message_type} notification."
          else
            Rails.logger.warning "Unknown notification type #{amz_message_type}."

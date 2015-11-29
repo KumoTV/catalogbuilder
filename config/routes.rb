@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notifications
   resources :media_items
   resources :encoding_profiles
   post 'sns_endpoint' => 'sns#sns_endpoint'
