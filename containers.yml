@@ -1,0 +1,14 @@
+- name: nginx-01 
+  image: nginx
+  exports: "-p '80:80' -p '443:443'"
+- name: rails-01
+  image: rails
+  exports: "-p '3000:3000'"
+- name: postgres-01
+  image: postgres
+  exports: "-p '5432:5432'"
+- name: redis-01
+  image: redis
+  exports: "-p '6379:6379'"
+
+
